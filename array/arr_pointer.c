@@ -6,6 +6,7 @@ int main()
 {
 	int a[] = {1, 21, 33, 44, 55};
 	int *p = a;
+	printf("%d\n", *a);
 	printf("%d\n", *(a + 1));
 	printf("%d\n", a[1]);
 	printf("%d\n", *p);

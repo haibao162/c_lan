@@ -120,6 +120,7 @@ ElemType deleteElem(SqlList *L, int i)
     return 0;
 }
 
+// 顺序表
 int main()
 {
     SqlList L;
