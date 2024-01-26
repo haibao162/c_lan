@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 struct Student
 {
@@ -14,6 +15,8 @@ typedef struct Error
 {
     char name[100];
 } Error;
+
+char *getName(struct Student *p);
 
 int main()
 {
@@ -37,4 +40,13 @@ int main()
 
     Apple *ap2 = &apple2;
     printf("*ap2:%s\n", ap2->name);
+    printf("%s\n", getName(&stu1));
+    struct Student stu2;
+    stu2.name = (char *)malloc(100 * sizeof(char));
+    strcpy(stu2.name, );
+}
+
+char *getName(struct Student *p)
+{
+    return p->name;
 }

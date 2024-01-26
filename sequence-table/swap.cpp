@@ -22,5 +22,7 @@ int main()
     get(123, x);
     printf("%d\n", a);
     printf("%d\n", x);
+    int c;
+
     return 0;
 }

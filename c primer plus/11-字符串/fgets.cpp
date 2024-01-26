@@ -15,7 +15,9 @@ int main()
 	// 	;
 	// }
     char words[10];
-    fgets(words, 10, stdin); // 存储格式为abc\n\0，或者aaaaaaaaa\0
+    char *ret_val;
+    ret_val = fgets(words, 10, stdin); // 存储格式为abc\n\0，或者aaaaaaaaa\0
+    printf("ret_val:%s\n", ret_val);
     fputs(words, stdout);
     printf("\n"); // 输出超过10个字符，剩下部分会保留在缓冲区，再次fgets不会触发输入，直接读取剩余部分
     fgets(words, 20, stdin);
