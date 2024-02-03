@@ -10,6 +10,15 @@ void Swap1(int &x, int &y)
     x = y;
     y = temp;
 }
+// void swap(int *a , int *b)
+// {
+// 	int temp;
+// 	temp = *a;
+// 	*a = *b;
+// 	*b = temp;
+// }
+// a = p改变不了a的值
+
 void get(int i, int &y)
 {
     y = i;
