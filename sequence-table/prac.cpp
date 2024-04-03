@@ -29,9 +29,9 @@ void create(LinkList *p)
     }
 }
 
-struct ListNode* createListNode()
+struct ListNode *createListNode()
 {
-    
+
     struct ListNode *p;
     struct ListNode *prev;
     p = NULL;
@@ -71,7 +71,7 @@ struct ListNode *mergeTwoLists(struct ListNode *list1, struct ListNode *list2)
         {
             struct ListNode *currentNode = (struct ListNode *)malloc(sizeof(struct ListNode));
             currentNode->next = NULL;
-            currentNode->val = result1->val;
+            currentNode->val = result2->val;
             if (result == NULL)
             {
                 result = currentNode;
@@ -83,6 +83,7 @@ struct ListNode *mergeTwoLists(struct ListNode *list1, struct ListNode *list2)
             prev = currentNode;
             result2 = result2->next;
         }
+
         struct ListNode *currentNode = (struct ListNode *)malloc(sizeof(struct ListNode));
         currentNode->next = NULL;
         currentNode->val = result1->val;
@@ -95,9 +96,23 @@ struct ListNode *mergeTwoLists(struct ListNode *list1, struct ListNode *list2)
             prev->next = currentNode;
         }
         prev = currentNode;
-        result = result->next;
-
         result1 = result1->next;
+    }
+    while (result2)
+    {
+        struct ListNode *currentNode = (struct ListNode *)malloc(sizeof(struct ListNode));
+        currentNode->next = NULL;
+        currentNode->val = result2->val;
+        if (result == NULL)
+        {
+            result = currentNode;
+        }
+        else
+        {
+            prev->next = currentNode;
+        }
+        prev = currentNode;
+        result2 = result2->next;
     }
     return result;
 }
@@ -122,5 +137,5 @@ int main()
     currentNode2 = createListNode();
     struct ListNode *result;
     result = mergeTwoLists(currentNode1, currentNode2);
-    printNode(result);
+    // printNode(result);
 }

@@ -90,10 +90,10 @@ var arr2 = [5, 3, 1];
 // console.log(arr1);
 // Choose(arr1);
 // console.log("选择排序", arr1);
-quickSort2(arr1, 0, arr1.length);
+// quickSort2(arr1, 0, arr1.length);
 // quickSort2(arr2, 0, arr2.length);
-console.log("快速排序", arr1);
-console.log("快速排序", arr2);
+// console.log("快速排序", arr1);
+// console.log("快速排序", arr2);
 
 
 
