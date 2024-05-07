@@ -83,7 +83,7 @@ int getLengthByMap(DuLinkList *L)
         i++;
         p = p->next;
     }
-    
+
     return i;
 }
 
@@ -110,7 +110,7 @@ void insertElem(DuLinkList *L, int i, int data)
     current = (struct node *)malloc(sizeof(struct node));
     current->data = data;
     current->next =
-    insertNode = getElem(L, i);
+        insertNode = getElem(L, i);
     if (insertNode)
     {
         printf("要插入的节点的数据是%d\n", insertNode->data);
@@ -119,7 +119,8 @@ void insertElem(DuLinkList *L, int i, int data)
         insertNode->prior = current;
         current->next = insertNode;
         current->prior = insertNode->prior;
-        if(*L == insertNode) {
+        if (*L == insertNode)
+        {
             *L = current; // 在第一个节点前插入当前新的节点，链表的表头要从新的节点开始
         }
         (*L)->length++;

@@ -74,7 +74,7 @@ int main()
 
     Push(&stack, 14);
     printStack(&stack);
-     LinkStack stack1;
+    LinkStack stack1;
     InitLinkStack(&stack1);
 
     return 0;

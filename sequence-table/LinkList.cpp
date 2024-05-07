@@ -37,12 +37,17 @@ typedef struct node
 {
     int data;
     struct node *next;
-} Node;
-typedef Node *LinkList;
+} Node, *LinkList;
+// typedef Node *LinkList;
 
-void initLinkList(LinkList *L)
+void initLinkList(LinkList *L) {
+    struct node *current = (struct node *)malloc(sizeof(struct node));
+    (*L)->data = -1;
+    (*L)->next = NULL;
+}
+
+void createLinkList(LinkList *L)
 {
-    *L = NULL;
     struct node *current, *prev;
     prev = *L;
     while (1)
@@ -55,14 +60,7 @@ void initLinkList(LinkList *L)
         {
             break;
         }
-        if (prev == NULL)
-        {
-            *L = current;
-        }
-        else
-        {
-            prev->next = current;
-        }
+        prev->next = current;
         prev = current;
     }
 }
@@ -193,7 +191,7 @@ void deleteEle(LinkList *L, int i)
 int main()
 {
     LinkList list;
-    initLinkList(&list);
+    createLinkList(&list);
     print(&list);
     int index = 3;
     struct node *elem = getElem(list, index);
