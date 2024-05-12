@@ -13,9 +13,9 @@ typedef struct BiThrNode
     int RTag; // 1:后驱 0:右节点
 } BiThrNode, *BiThrTree;
 
-BiThrTree prev = NULL;
+BiThrTree pre = NULL; // 指向上一个访问的节点
 //  C++ requires a type specifier for all declarations 代码片段没有写在函数中
-// *prev = NULL;
+// *pre = NULL;
 
 // a+b*(c-d)
 //     +             
@@ -56,7 +56,28 @@ void rebuild(BiThrTree &tree, char* start, char* end, int centerLength) {
         // printf("%c  %d  \n", *(start + rootIndex + 1),  centerLength - rootIndex - 1);
         rebuild(tree->rchild, start + rootIndex + 1, end + rootIndex, centerLength - rootIndex - 1);
     }
+}
 
+// 中序遍历进行中序线索化，没有左孩子
+void InTheading(BiThrTree &p) {
+    if(p) {
+        InTheading(p->lchild);
+        if(!p->lchild) {
+            p->Ltag = 1;
+            p->lchild = pre;
+        } else {
+            p->Ltag = 0; // 有左孩子为0，没有左孩子为1，指向前一个节点
+        }
+        if (!pre->rchild) {
+            pre->RTag = 1;
+            pre->rchild = p; // 没有右孩子，指向下一个节点
+        } else {
+            p->RTag = 0;
+        }
+        pre = p;
+        InTheading(p->rchild);
+
+    }
 }
 
 int main()
@@ -66,6 +87,7 @@ int main()
     char center[] = "a+b*c-d"; // 中序遍历
     char right[] = "abcd-*+"; // 后续遍历
     rebuild(p, center, right, sizeof(right) / sizeof(right[0]) - 1);
-    printThread(p);
+    // printThread(p);
+    InTheading(p);
     return 0;
 }

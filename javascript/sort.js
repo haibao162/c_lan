@@ -95,5 +95,43 @@ var arr2 = [5, 3, 1];
 // console.log("快速排序", arr1);
 // console.log("快速排序", arr2);
 
+// 归并排序
+function mergeSort(arr, left, right) {
+    const mid = Math.floor((left + right) / 2);
+    if (left < right) {
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid+1, right);
+        merge(arr, left, mid, right);
+    }
+}
 
+function merge(arr,left, mid, right) {
+    const temp = [];
+    let i = left; // 左侧
+    let j = mid + 1; // 右侧
+    let k = 0;
+    while(i <= mid && j <= right) {
+        if (arr[i] <= arr[j]) {
+            temp[k] = arr[i];
+            k++;
+            i++;
+        } else {
+            temp[k] = arr[j];
+            k++;
+            j++;
+        }
+    }
+    while (i <= mid) {
+        temp[k++] = arr[i++];
+    }
+    while (j <= right) {
+        temp[k++] = arr[j++];
+    }
+    for(let s = 0;s < temp.length;s++) {
+        arr[left++] = temp[s];
+    }
+}
+
+mergeSort(arr1, 0, arr1.length - 1);
+console.log(arr1);
 
