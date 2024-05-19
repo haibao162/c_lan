@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-// 单链表
+// 单链表，单链表一般最好设置头结点
 
 // 按一整行输入字符串，换行符结束，并且删除换行符
 char *s_gets(char *st, int n)
@@ -67,7 +67,7 @@ void createLinkList(LinkList *L)
 
 void print(LinkList *L)
 {
-    struct node *p = *L;
+    struct node *p = (*L)->next;
     int i = 1;
     while (p != NULL)
     {
@@ -81,7 +81,7 @@ void print(LinkList *L)
 struct node *getElem(LinkList L, int i)
 {
     struct node *p;
-    p = L;
+    p = L->next; // 首元节点
     int j = 1;
     while (p)
     {
@@ -99,7 +99,7 @@ struct node *getElem(LinkList L, int i)
 struct node *locateElem(LinkList L, int data)
 {
     struct node *p;
-    p = L;
+    p = L->next;
     while (p)
     {
         if (p->data == data)
@@ -114,7 +114,7 @@ struct node *locateElem(LinkList L, int data)
 int linkListLength(LinkList *L)
 {
     int length = 0;
-    struct node *p = *L;
+    struct node *p = (*L)->next;
     while (p != NULL)
     {
         length++;
@@ -126,7 +126,7 @@ int linkListLength(LinkList *L)
 // 在第i个位置后面插入节点，节点的值是data
 void insertEle(LinkList *L, int i, int data)
 {
-    struct node *head = *L;
+    struct node *head = (*L)->next;
     int j = 1;
     while (head != NULL)
     {
@@ -147,7 +147,7 @@ void insertEle(LinkList *L, int i, int data)
 // 删除第i个位置的节点
 void deleteEle(LinkList *L, int i)
 {
-    struct node *head = *L;
+    struct node *head = (*L)->next;
     int j = 1;
     if (i < 1)
     {
@@ -212,9 +212,9 @@ int main()
     print(&list);
 
     deleteEle(&list, 1);
+    printf("删除第1个节点:\n");
     print(&list);
     // LinkList list2;
     // initLinkList(&list2);
-
     return 0;
 }
