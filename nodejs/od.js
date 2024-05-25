@@ -1,14 +1,11 @@
-const rl = require("readline").createInterface({ input: process.stdin, output: process.stdout });
+const rl = require("readline").createInterface({ input: process.stdin });
+var iter = rl[Symbol.asyncIterator]();
+const readline = async () => (await iter.next()).value;
 
-//调用接口方法
-rl.question("input: ", function (answer) {
-    console.log(answer);
-    // 不加close，则不会结束
-    rl.close();
-})
-
-//close事件监听
-rl.on("close", function () {
-    // 结束程序
-    process.exit(0);
-})
+void async function () {
+    // Write your code here
+    while(line = await readline()){
+        let tokens = line.split(' ');
+        console.log(tokens.slice(-1)[0]);
+    }
+}()
