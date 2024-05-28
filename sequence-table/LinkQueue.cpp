@@ -4,20 +4,20 @@
 #include <stdlib.h>
 #include <time.h>
 // 链式队列
-
+ 
 #define MAXSIZE 5
-
+ 
 typedef struct QNode
 {
     int data;
     struct QNode *next;
 } QNode, *QueuePointer;
-
+ 
 typedef struct {
     QueuePointer front; // 队头指针
     QueuePointer rear; // 队尾指针
 } LinkQueue;
-
+ 
 void InitQueue(LinkQueue *Q) {
     QueuePointer node = (struct QNode *)malloc(sizeof(struct QNode));
     node->data = 0;
@@ -26,7 +26,7 @@ void InitQueue(LinkQueue *Q) {
     Q->rear = node;
     // 空队列
 }
-
+ 
 // 入队
 void EnQueue(LinkQueue *Q, int data) {
     struct QNode *node = (struct QNode *)malloc(sizeof(struct QNode));
@@ -36,7 +36,7 @@ void EnQueue(LinkQueue *Q, int data) {
     Q->rear = node; // rear指向新的节点，在队尾
     // Q->front的next指向第一个有数据的节点。Q->front->data为空或者默认为0，不计入队列。
 }
-
+ 
 // 出队
 void DeQueue(LinkQueue *Q, int *data) {
     LinkQueue *p;
@@ -58,13 +58,13 @@ void DeQueue(LinkQueue *Q, int *data) {
         delete temp;
     }
 }
-
+ 
 int GetQueueHead(LinkQueue *Q) {
     if (Q->front != Q->rear) {
         return Q->front->next->data;
     }
 }
-
+ 
 void PrintQueue(LinkQueue *Q) {
     LinkQueue *p;
     p = Q;
@@ -79,13 +79,13 @@ void PrintQueue(LinkQueue *Q) {
         head = head->next;
     }
 }
-
+ 
 int EmptyQueue(LinkQueue *Q) {
     if (Q->front == Q->rear) {
         return 1;
     } else return 0;
 }
-
+ 
 void conversion(LinkQueue *Q, int n) {
     InitQueue(Q);
     int number = n;
@@ -103,11 +103,11 @@ void conversion(LinkQueue *Q, int n) {
     printf("\n");
     puts("---end---");
 }
-
+ 
 int main()
 {
     LinkQueue *linkQueue;
-    // linkQueue = (LinkQueue *)malloc(sizeof(LinkQueue));
+    linkQueue = (LinkQueue *)malloc(sizeof(LinkQueue));
     InitQueue(linkQueue);
     EnQueue(linkQueue, 101);
     EnQueue(linkQueue, 102);
@@ -122,10 +122,10 @@ int main()
     PrintQueue(linkQueue);
     DeQueue(linkQueue, &data);
     PrintQueue(linkQueue);
-
-    LinkQueue queue;
-    // queue = (LinkQueue *)malloc(sizeof(LinkQueue));
-    InitQueue(&queue);
+ 
+    LinkQueue *queue;
+    queue = (LinkQueue *)malloc(sizeof(LinkQueue));
+    InitQueue(queue);
     // Segmentation fault: 11
     return 0;
 }

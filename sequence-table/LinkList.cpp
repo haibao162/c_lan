@@ -42,6 +42,7 @@ typedef struct node
 
 void initLinkList(LinkList *L) {
     struct node *current = (struct node *)malloc(sizeof(struct node));
+    *L = current;
     (*L)->data = -1;
     (*L)->next = NULL;
 }
@@ -191,6 +192,7 @@ void deleteEle(LinkList *L, int i)
 int main()
 {
     LinkList list;
+    initLinkList(&list);
     createLinkList(&list);
     print(&list);
     int index = 3;
