@@ -158,4 +158,4 @@ const copyTree2 = {};
 copy(BSTree, copyTree1);
 copy(BSTree, copyTree2);
 deleteBST(copyTree2, 24);
-console.log('copyTree2 删除24:', copyTree2);
+console.log('copyTree2  删除24:', copyTree2);
