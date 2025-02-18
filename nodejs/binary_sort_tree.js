@@ -82,7 +82,7 @@ function deleteBST(T, element) {
     }
     if (p.lchild && p.rchild) {
         let q = p;
-        s = p.lchild;
+        s = p.lchild; // 如果p节点左右孩子都有，不用考虑p节点的右孩子。此时我们的目标是把左孩子的最大节点删了，值赋给p
         // 非空对象
         while (s.rchild && Object.keys(s.rchild).length) {
             q = s; // 前驱节点的父节点
@@ -90,6 +90,8 @@ function deleteBST(T, element) {
         }
         p.data = s.data; // 将前驱节点放在要删除的节点
         if (p != q) {
+            // 删除p节点，我们的目标是删除p的前驱节点s，将s的值赋值给p。如果s还有子节点，想办法把s的子节点如s3连到x1下面
+            // 所以需要一直取右孩子，取到s，同时记录s的父节点x1记为q，q.rchild = s.lchild的含义就是x1的右孩子指向x3。
             //          p
             //     x1
             //   x2    s
@@ -106,10 +108,11 @@ function deleteBST(T, element) {
             }
         } else {
             //        p
-            //    x1
+            //    x1    
             //  x2
-            q.lchild = s.lchild; // 此时s是x1，p的左孩子指向x2
+            q.lchild = s.lchild; // 此时s是x1，p的左孩子指向x2。当然如果x1没有x2子孩子的话，q.lchild=null也依然成立。
         }
+        // 前驱节点删了
         delete s;
         return;
     } else {
