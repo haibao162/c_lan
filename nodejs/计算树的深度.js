@@ -42,16 +42,30 @@ root = [3,9,20,null,null,15,7]
 // N  N   15 7
 
 tree = build_tree(root)
-console.log(tree)
+// console.log(tree)
 
 
 function depth(root) {
     if(!root) {
         return 0;
     }
-    left = depth(root.left) + 1
-    right = depth(root.right) + 1
-    return left > right ? left : right;
+    const left = depth(root.left)
+    const right = depth(root.right)
+    // console.log(root, left, right, Math.max(left, right) + 1, 'xxx')
+    return Math.max(left, right) + 1;
 }
 
-console.log(depth(tree))
+// console.log(depth(tree))
+
+root2 = [1,2,3,4]
+//      1  
+//  2      3
+// 4   5
+tree2 = build_tree(root2)
+// console.log(tree2)
+// console.log(depth(tree2))
+console.log('tree2', tree2, depth(tree2))
+
+
+
+

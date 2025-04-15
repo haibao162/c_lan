@@ -60,6 +60,9 @@ function quickSort(arr, _left, _right) {
         quickSort(arr, left + 1, _right);
     }
 }
+s = [8,7]
+quickSort(s,0,2)
+console.log(s, "\n--------------\n")
 // 选择第一个作为基准值，从第二个数开始每次遍历将小的数跟前面大的数交换（或者自己跟自己交换），并且使用index=left+1开始进行计数用于记录小的数的数量
 // 遍历结束以后将第一个基准值和最后一个小的数即index位置的数交换，这样基准值右边的都是大的数，左边都是小的数
 function quickSort2 (arr, _left, _right) {
@@ -85,6 +88,8 @@ function quickSort2 (arr, _left, _right) {
 
 var arr1 = [5, 3, 3, 36, 24, 19, 1, 92];
 var arr2 = [5, 3, 1];
+
+
 
 // Bubble(arr1);
 // console.log(arr1);
