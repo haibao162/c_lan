@@ -12,3 +12,38 @@
 // 输入：nums = [3,2,1,0,4]
 // 输出：false
 // 解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。
+
+// nums = [2,3,1,1,4]
+// 考虑3,1。
+
+// [3,0,3,4,5,6,7,8,9,10]
+
+// [2,0,0,4,5,6,7,8,9,10]
+
+nums = [2,3,1,1,4]
+
+nums = [2,0,0,4,5,6,7,8,9,10]
+
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canJump = function(nums) {
+    let n = nums.length
+    let rightmost = 0
+    for (let i = 0;i < nums.length;i++) {
+        // 当前能到达的最远距离到达不了下标i，则不会更新rightmost。如第一个数就是0，rightmost就是取值0，表示能够到的位置就是nums
+        // 里的第一个位置。第二次遍历的时候，i=1，rightmost < 1，说明到不了第二个位置，最后肯定是返回false
+        if (rightmost >= i) {
+            rightmost = Math.max(rightmost, i + nums[i])
+        }
+        if (rightmost >= n - 1) {
+            return true
+        }
+
+    }
+    return false
+};
+
+console.log(canJump(nums))
