@@ -19,6 +19,7 @@
 
 var RandomizedSet = function() {
     this.arr = []
+    this.indices = new Map()
 };
 
 /** 
@@ -26,8 +27,14 @@ var RandomizedSet = function() {
  * @return {boolean}
  */
 RandomizedSet.prototype.insert = function(val) {
+    // 包含了val，不在插入
+    if (this.indices.has(val)) {
+        return false
+    }
+    const length = this.arr.length
+    this.indices.set(val, length)
     this.arr.push(val)
-    return this.arr
+    return true
 };
 
 /** 
@@ -35,14 +42,26 @@ RandomizedSet.prototype.insert = function(val) {
  * @return {boolean}
  */
 RandomizedSet.prototype.remove = function(val) {
-    
+    // 不包含val，返回false
+    // console.log(val, this.indices, 'in')
+    if (!this.indices.has(val)) {
+        return false
+    }
+    let id = this.indices.get(val)
+    // 将最后一个值放在要删除的id上，最后删除最后一个
+    this.arr[id] = this.arr[this.arr.length - 1]
+    this.arr.pop()
+    this.indices.delete(val)
+    this.indices.set(this.arr[id], id) // 更新map里的id
+    return true
 };
 
 /**
  * @return {number}
  */
-RandomizedSet.prototype.getRandom = function() {
-    
+RandomizedSet.prototype.getRandom = function(val) {
+    let id = Math.floor(Math.random() * this.arr.length)
+    return this.arr[id]
 };
 
 /** 
@@ -55,6 +74,33 @@ RandomizedSet.prototype.getRandom = function() {
 
 var obj = new RandomizedSet()
 var param_1 = obj.insert(1)
-console.log(param_1)
-// var param_2 = obj.remove(val)
-// var param_3 = obj.getRandom()
+var param_2 = obj.remove(2)
+var param_3 = obj.insert(2)
+var param_4 = obj.getRandom()
+var param_5 = obj.remove(1)
+
+var param_6 = obj.insert(2)
+var param_7 = obj.getRandom()
+// console.log(param_4, '第一个随机值')
+// console.log(param_7, '第二个随机值')
+
+// let a = new Map()
+// let b = {}
+// c = 2
+// b[c] = 3
+// a.set(c, 4)
+// console.log(a)
+// console.log(b)
+let a = new Map([
+    [1, 0],
+    [2,'3'],
+    [3, '4']
+])
+// a.delete(2)
+// console.log(a)
+// a = Math.floor(Math.random() * 100)
+// console.log(a)
+console.log(a.get(1), a.get(100)) // 0 undefined
+console.log(a.has(1), a.has(100)) // true false
+
+
