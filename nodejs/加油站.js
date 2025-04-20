@@ -36,3 +36,43 @@
 // 开往1号：6 + 1 - 3 = 4
 // 开往2号：4 + 2 - 4 = 2
 // 开往3号：2 + 3 - 5 = 0 ，正好开到3号加油站
+
+// 如果x能到达y，无法到达y + 1，则从 x,y 之间的任何一个加油站出发，都无法到达加油站 y 的下一个加油站。
+// 我们首先检查第 0 个加油站，并试图判断能否环绕一周；如果不能，就从第一个无法到达的加油站开始继续检查。
+
+/**
+ * @param {number[]} gas
+ * @param {number[]} cost
+ * @return {number}
+ */
+var canCompleteCircuit = function(gas, cost) {
+    const n = gas.length
+    let i = 0
+    while (i < n) {
+        let sumOfGas = 0, sumOfCost = 0
+        let cnt = 0
+        while (cnt < n) {
+            let currentPos = (i + cnt) % n // 第几个加油站
+            // console.log(i, cnt, i + cnt);
+            sumOfGas += gas[currentPos]
+            sumOfCost += cost[currentPos]
+            // 总耗油大于油量
+            if (sumOfCost > sumOfGas) {
+                break
+            }
+            cnt++
+        }
+        if (cnt === n) {
+            return i
+        } else {
+            i = i + cnt + 1
+        }
+    }
+    return -1
+};
+
+gas = [1,2,3,4,5]
+
+cost = [3,4,5,1,2]
+
+console.log(canCompleteCircuit(gas, cost))
