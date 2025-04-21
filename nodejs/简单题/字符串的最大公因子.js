@@ -17,6 +17,41 @@
 // 输入：str1 = "LEET", str2 = "CODE"
 // 输出：""
 
+/**
+ * @param {string} str1
+ * @param {string} str2
+ * @return {string}
+ */
+var gcdOfStrings = function(str1, str2) {
+    // let res1 = str1.split('AB')
+    // console.log(res1)
+    // let res2 = str1.split('ABC')
+    // console.log(res2)
+    // console.log('AAAAAA'.split('A'))
+    // console.log('ABAB'.split('AB'))
+    if (str1.concat(str2) != str2.concat(str1)) {
+        return ""
+    }
+    const len = gcd(str1.length, str2.length)
+    return str1.substring(0,len)
+    // console.log(gcd(6,4))
+
+};
+
+var gcd = function(a, b) {
+    let remainder = a % b;
+    while (remainder != 0) {
+        a = b;
+        b = remainder;
+        remainder = a % b;
+    }
+    return b;
+}
+
+str1 = "ABCABC", str2 = "ABC"
+console.log(gcdOfStrings(str1, str2))
+
+
 
 
 
