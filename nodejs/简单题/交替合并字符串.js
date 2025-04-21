@@ -26,3 +26,51 @@
 // word1：  a   b   c   d
 // word2：    p   q 
 // 合并后：  a p b q c   d
+
+/**
+ * @param {string} word1
+ * @param {string} word2
+ * @return {string}
+ */
+var mergeAlternately = function(word1, word2) {
+    let len1 = word1.length
+    let len2 = word2.length
+    let min = Math.min(len1, len2)
+    // let max = Math.max(len1, len2)
+    let i = 0
+    let result = []
+    // 每次循环加2个值
+    while (i < min) {
+        result.push(word1[i])
+        result.push(word2[i])
+        i++
+    }
+    if (len1 > min) {
+        for (let i = min;i < len1;i++) {
+            result.push(word1[i])
+        }
+    }
+    if (len2 > min) {
+        for (let i = min;i < len2;i++) {
+            result.push(word2[i])
+        }
+    }
+    console.log(result)
+    return result.join('')
+};
+
+word1 = "abc", word2 = "pqr"
+
+mergeAlternately(word1, word2)
+
+// while (i < m || j < n) {
+//     if (i < m) {
+//         ans.push(word1[i]);
+//         ++i;
+//     }
+//     if (j < n) {
+//         ans.push(word2[j]);
+//         ++j;
+//     }
+// }
+
