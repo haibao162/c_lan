@@ -29,18 +29,48 @@
 var asteroidCollision = function(asteroids) {
     let stack = []
     stack.push(asteroids[0])
+    let i = 1
     while (i < asteroids.length) {
-        
-        if (asteroids[i]) {
+        if (stack[stack.length - 1] < 0 || stack.length === 0) {
+            stack.push(asteroids[i])
+            i++
+            continue
+        }
+        while(stack.length) {
+            let latest = stack.pop()
+            // 符号相反
+            if (asteroids[i] * latest < 0) {
+                // 大小相等，抵消了
+                if (Math.abs(asteroids[i]) == Math.abs(latest)) {
+                    break
+                } else if (Math.abs(asteroids[i]) < Math.abs(latest)) {
+                    // 栈顶放回去，不做改变
+                    stack.push(latest)
+                    break
+                } else if (Math.abs(asteroids[i]) > Math.abs(latest) && stack.length == 0) {
+                    stack.push(asteroids[i])
+                    break
+                }
+            } else {
+                // 符号相同，跳出循环
+                stack.push(latest)
+                stack.push(asteroids[i])
+                break
 
+            }
         }
         i++
     }
+    console.log(stack, 'stack')
+    return stack
 };
 
-var mathSign = function(a, b) {
-    return Math.sign(a)
-}
+// var mathSign = function(a, b) {
+//     return Math.sign(a)
+// }
 
 asteroids = [5,10,-5]
+// asteroids = [1,2,-5]
+asteroids = [-2,-1,1,2] // [-2,-1,1,2]
+asteroids = [1,-1,-2,-2]
 asteroidCollision(asteroids)
