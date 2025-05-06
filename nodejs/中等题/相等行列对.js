@@ -23,10 +23,22 @@ var equalPairs = function(grid) {
     const cnt = {}
     for (let i = 0;i < n;i++) {
         const rowStr = grid[i].toString()
-        cnt[rowStr] = rowStr
+        cnt[rowStr] = (cnt[rowStr] || 0) + 1
     }
+    console.log(cnt, 'cnt')
+    let res = 0
+    for (let j = 0;j < n;j++) {
+        const arr = []
+        for (let i = 0;i < n;i++) {
+            arr.push(grid[i][j])
+        }
+        const arrStr = arr.toString()
+        if (cnt[arrStr]) {
+            res += cnt[arrStr]
+        } 
+    }
+    return res
 
-    
 };
 
 grid = [[3,1,2,2],[1,4,4,5],[2,4,2,2],[2,4,2,2]]
