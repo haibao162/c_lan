@@ -58,7 +58,7 @@ function buildTree(inorder, postorder) {
         }
     }
     build(inorder, postorder, result)
-    // console.log(result)
+    console.log(result)
     return result
 }
 
