@@ -20,28 +20,41 @@ var spiralOrder = function(matrix) {
     const rows = matrix.length
     const columns = matrix[0].length
     const nums = rows * columns
+    const visited = []
+    for (let m = 0;m < rows;m++) {
+        visited[m] = []
+        for (let n = 0;n < columns;n++) {
+            visited[m][n] = false
+        }
+    }
     let i = 0
     let row = 0
-    let column = 0
+    let col = 0
     let directions = [[0,1],[1,0],[0,-1],[-1,0]]
     let directionIndex = 0
     const order = []
     while(i < nums) {
-        order.push(matrix[row][column])
+        order.push(matrix[row][col])
+        visited[row][col] = true
         let nextRow = row + directions[directionIndex][0]
         let nextCol = col + directions[directionIndex][1]
-        if (nextRow < 0 || nextRow >= ) {}
-
-
+        if (nextRow < 0 || nextRow >= rows || nextCol < 0 || nextCol >= columns || visited[nextRow][nextCol]) {
+            directionIndex = (directionIndex + 1) % 4
+        }
+        row = row + directions[directionIndex][0]
+        col = col + directions[directionIndex][1]
         i++
-
     }
-    console.log(order)
-    
+    // console.log(order)
+    return order
     
 };
 
 matrix = [[1,2,3],
                [4,5,6],
                [7,8,9]]
+matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+
 spiralOrder(matrix)
+
+
