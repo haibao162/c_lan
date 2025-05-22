@@ -25,23 +25,26 @@
 // lRUCache.get(3);    // 返回 3
 // lRUCache.get(4);    // 返回 4
 
-function ListNode(value) {
-    this.value = value || null
+function ListNode(key, value) {
+    this.value = value
+    this.key = key
     this.next = null
+    this.prev = null
 }
+
+// map里存放key: ListNode的结构，ListNode使用一个双向链表存储，双向链表(链表无需循环)方便删除和添加，操作时是O(1)复杂度
 
 /**
  * @param {number} capacity
  */
 var LRUCache = function(capacity) {
-    this.cache = new Map()
-    this.head = new ListNode()
-    this.tail = new ListNode()
-    this.head.next = this.tail
     this.capacity = capacity
+    this.head = new ListNode('head') // 头结点
+    this.tail = new ListNode('tail') // 尾结点
+    this.head.next = this.tail
+    this.tail.prev = this.head
     this.size = 0
-
-
+    this.map = new Map()
 };
 
 /** 
@@ -49,7 +52,14 @@ var LRUCache = function(capacity) {
  * @return {number}
  */
 LRUCache.prototype.get = function(key) {
-    console.log(232)
+    const node = this.map.get(key)
+    if (!node) {
+        return -1
+    } else {
+        const removeNode = this.removeNode(node)
+        this.addToHead(removeNode)
+        return node.value
+    }
     
 };
 
@@ -59,7 +69,46 @@ LRUCache.prototype.get = function(key) {
  * @return {void}
  */
 LRUCache.prototype.put = function(key, value) {
+    const node = this.map.get(key)
+    if (node) {
+        node.value = value
+        const moveMode = this.removeNode(node)
+        this.addToHead(moveMode)
+    } else {
+        const newNode = new ListNode(key, value)
+        this.map.set(key, newNode)
+        this.addToHead(newNode)
+        this.size++
+        if (this.size > this.capacity) {
+            const removeNode = this.removeTail()
+            // console.log(this.tail, this.map, 'this.tail.prev')
+            this.map.delete(removeNode.key)
+            this.size--
+        }
+    }
     
+};
+
+// 让head指向node，node指向head的next
+LRUCache.prototype.addToHead = function(node) {
+    node.prev = this.head
+    node.next = this.head.next
+    this.head.next.prev = node
+    this.head.next = node
+};
+
+LRUCache.prototype.removeNode = function(node) {
+    node.prev.next = node.next
+    node.next.prev = node.prev
+    return node
+    
+};
+
+LRUCache.prototype.removeTail = function() {
+    const node = this.tail.prev
+    this.removeNode(node)
+    return node
+
 };
 
 /** 
@@ -68,4 +117,33 @@ LRUCache.prototype.put = function(key, value) {
  * var param_1 = obj.get(key)
  * obj.put(key,value)
  */
+// var obj = new LRUCache(2)
+// obj.put(1,1)
+// obj.put(2,2)
+// console.log(obj.get(1)) // 1
+// obj.put(3,3)
+
+// console.log(obj.get(2)) // -1
+// obj.put(4,4)
+// console.log(obj.get(1)) // -1
+// console.log(obj.get(3)) //  3
+// console.log(obj.get(4)) // 4
+
+// ["LRUCache","put","put","get","put","get","put","get","get","get"]
+// [[2],[1,0],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
+
+// ["LRUCache","put","put","get","put","get","put","get","get","get"]
+// [[2],[1,0],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
+
 var obj = new LRUCache(2)
+obj.put(1,0)
+obj.put(2,2)
+console.log(obj.get(1)) // 0
+obj.put(3,3)
+
+console.log(obj.get(2)) // -1
+obj.put(4,4)
+
+console.log(obj.get(1)) // -1
+console.log(obj.get(3)) //  3
+console.log(obj.get(4)) // 4

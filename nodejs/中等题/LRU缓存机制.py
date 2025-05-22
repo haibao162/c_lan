@@ -48,12 +48,6 @@ class LRUCache:
         self.head.next.prev = node
         self.head.next = node
     
-    def removeNode(self, node):
-        node.prev = self.head
-        node.next = self.head.next
-        self.head.next.prev = node
-        self.head.next = node
-    
     def moveToHead(self, node):
         self.removeNode(node)
         self.addToHead(node)
@@ -61,10 +55,6 @@ class LRUCache:
     def removeNode(self, node):
         node.prev.next = node.next
         node.next.prev = node.prev
-
-    def moveToHead(self, node):
-        self.removeNode(node)
-        self.addToHead(node)
     
     def removeTail(self):
         node = self.tail.prev
