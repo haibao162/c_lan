@@ -12,6 +12,10 @@
 // 输出
 // [null, 3, 7, true, 9, true, 15, true, 20, false]
 
+
+//     7
+// 3       5
+//       9   20
 // 解释
 // BSTIterator bSTIterator = new BSTIterator([7, 3, 15, null, null, 9, 20]);
 // bSTIterator.next();    // 返回 3
@@ -36,6 +40,19 @@
  * @param {TreeNode} root
  */
 var BSTIterator = function(root) {
+    this.arr = []
+    let _this = this
+
+    var dst = function(head) {
+        if (!head) {
+            return
+        }
+        dst(head.left)
+        _this.arr.push(head.val)
+        dst(head.right)
+    }
+    dst(root)
+    this.index = 0
     
 };
 
@@ -43,6 +60,11 @@ var BSTIterator = function(root) {
  * @return {number}
  */
 BSTIterator.prototype.next = function() {
+    if (this.index < this.arr.length) {
+        let res = this.arr[this.index]
+        this.index++
+        return res
+    }
     
 };
 
@@ -50,8 +72,24 @@ BSTIterator.prototype.next = function() {
  * @return {boolean}
  */
 BSTIterator.prototype.hasNext = function() {
-    
+    if (this.index < this.arr.length) {
+        return true
+    }
+    return false
 };
+
+root = [7, 3, 15, null, null, 9, 20]
+root = buildTree(root)
+bSTIterator = new BSTIterator(root);
+console.log(bSTIterator.next())    // 返回 3
+console.log(bSTIterator.next())    // 返回 7
+console.log(bSTIterator.hasNext()) // 返回 True
+console.log(bSTIterator.next())    // 返回 9
+console.log(bSTIterator.hasNext()) // 返回 True
+console.log(bSTIterator.next())    // 返回 15
+console.log(bSTIterator.hasNext()) // 返回 True
+console.log(bSTIterator.next())   // 返回 20
+console.log(bSTIterator.hasNext()) // 返回 False
 
 /** 
  * Your BSTIterator object will be instantiated and called as such:
@@ -59,3 +97,33 @@ BSTIterator.prototype.hasNext = function() {
  * var param_1 = obj.next()
  * var param_2 = obj.hasNext()
  */
+
+function TreeNode(val, left, right) {
+    this.val = val ||  0 
+    this.left = left || null
+    this.right = right || null
+}
+
+function buildTree(arr) {
+    let length = arr.length
+    const head = new TreeNode(arr[0])
+    const queue = [head]
+    let i = 1
+    while(i < length) {
+        const currentNode = queue.shift()
+        if(arr[i]) {
+            const left = new TreeNode(arr[i])
+            currentNode.left = left
+            queue.push(left)
+        }
+        i++
+        if (arr[i]) {
+            const right = new TreeNode(arr[i])
+            currentNode.right = right
+            queue.push(right)
+
+        }
+        i++
+    }
+    return head
+}
