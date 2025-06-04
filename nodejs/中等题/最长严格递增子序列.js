@@ -45,4 +45,6 @@ function binarySearch(arr, target) {
     }
     return replaceId
 }
-console.log(getMaxLength2(nums))
+// console.log(getMaxLength2(nums))
+console.log(getMaxLength(nums))
+

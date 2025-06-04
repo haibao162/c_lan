@@ -79,6 +79,8 @@ var orangesRotting = function(grid) {
 };
 
 grid = [[2,1,1],[1,1,0],[0,1,1]]
-grid = [[2,1,1],[0,1,1],[1,0,1]]
+grid = [[2,1,1],
+[0,1,1],
+[1,0,1]]
 
 console.log(orangesRotting(grid))
