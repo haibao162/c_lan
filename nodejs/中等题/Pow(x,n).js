@@ -62,27 +62,32 @@ function digui(x, n) {
 
 }
 
+// n = 6  110
 function quickMul(x, n) {
     let ans = 1.0
     let x_contribute = x
     let N = n
     while (N > 0) {
         console.log(x_contribute, 'x_contribute')
-        x_contribute = x_contribute * x
+        if (N % 2 == 1) {
+            ans = ans * x_contribute
+        }
+        
+        x_contribute = x_contribute * x_contribute
         N = Math.floor(N / 2)
 
     }
-
+    return ans
 }
 
 var myPow = function(x, n) {
     if (n == 0) {
         return 1
     }
-    quickMul(x, n)
+    return n > 0 ? quickMul(x, n) : 1 / quickMul(x, -n)
 }
 
-x = 2, n = 77
+x = 2, n = 6
 console.log(myPow(x, n))
 
 // ((1 * 2 * 2 * 2 + 1) * 2 + 1) * 2 * 2 + 1 = 77
