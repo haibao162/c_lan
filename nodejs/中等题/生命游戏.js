@@ -33,7 +33,20 @@
 var gameOfLife = function(board) {
 
     let row = board.length
-    // let col = 
-    // for
+    let col = board[0].length
+    let copyBoard = []
+    for (let i = 0;i < row;i++) {
+        copyBoard[i] = []
+        for (let j = 0;j < col;j++) {
+            copyBoard[i][j] = board[i][j]
+        }
+    }
+    console.log(copyBoard)
     
 };
+
+board = [[0,1,0],
+         [0,0,1],
+         [1,1,1],
+         [0,0,0]]
+gameOfLife(board)
